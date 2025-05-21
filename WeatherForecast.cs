@@ -10,4 +10,9 @@ namespace MatveevVadimKt_42_22
 
         public string? Summary { get; set; }
     }
+    public class NewSummaryDto
+    {
+        public string NewSummary { get; set; }
+    }
+
 }

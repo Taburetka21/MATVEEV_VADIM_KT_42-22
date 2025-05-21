@@ -8,8 +8,8 @@ namespace MatveevVadimKt_42_22.Controllers
     {
         private static readonly string[] Summaries = new[]
         {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
+        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+    };
 
         private readonly ILogger<WeatherForecastController> _logger;
 
@@ -21,6 +21,8 @@ namespace MatveevVadimKt_42_22.Controllers
         [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<WeatherForecast> Get()
         {
+            _logger.LogError("Method was called");
+
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),
@@ -29,5 +31,17 @@ namespace MatveevVadimKt_42_22.Controllers
             })
             .ToArray();
         }
+
+
+        [HttpPost(Name = "AddNewSummary")]
+        public string[] AddNewSummary([FromBody] NewSummaryDto dto)
+        {
+            _logger.LogInformation("New summary added: {Summary}", dto.NewSummary);
+
+            var list = Summaries.ToList();
+            list.Add(dto.NewSummary);
+            return list.ToArray();
+        }
+
     }
 }
