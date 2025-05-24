@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MatveevVadimKt-42-22")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+83ba1e174c4c1ee512d49c968affc4b790deac06")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+660230364d5cbbd8a00f4c867cffbe4a6bfc3176")]
 [assembly: System.Reflection.AssemblyProductAttribute("MatveevVadimKt-42-22")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MatveevVadimKt-42-22")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
