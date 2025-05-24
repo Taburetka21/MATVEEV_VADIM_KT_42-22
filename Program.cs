@@ -1,7 +1,9 @@
 
 using MatveevVadimKt_42_22.Database;
+using MatveevVadimKt_42_22.ServiceExtensions;
 using Microsoft.EntityFrameworkCore;
 using NLog;
+using MatveevVadimKt_42_22.Middlewares;
 using NLog.Web;
 
 
@@ -25,7 +27,7 @@ try
     builder.Services.AddSwaggerGen();
     builder.Services.AddDbContext<UniversityDbContext>(options =>
        options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+    builder.Services.AddServices();
 
     var app = builder.Build();
 
@@ -36,7 +38,7 @@ try
         app.UseSwaggerUI();
     }
 
-
+    app.UseMiddleware<ExceptionHandlerMiddleware>();
 
     app.UseAuthorization();
 
