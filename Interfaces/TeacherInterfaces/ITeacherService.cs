@@ -9,20 +9,24 @@ namespace MatveevVadimKt_42_22.Interfaces.TeacherInterfaces
 {
     public interface ITeacherService
     {
-        public Task<Teacher[]> GetTeachersAsync(TeacherFilter filter, CancellationToken cancellationToken);
-        public Task<Teacher?> GetTeacherByIdAsync(int id, CancellationToken cancellationToken);
-        public Task<Teacher> AddTeacherAsync(Teacher teacher, CancellationToken cancellationToken);
-        public Task<Teacher> UpdateTeacherAsync(Teacher teacher, CancellationToken cancellationToken);
-        public Task<bool> DeleteTeacherAsync(int id, CancellationToken cancellationToken);
+        Task<Teacher[]> GetTeachersAsync(TeacherFilter filter, CancellationToken cancellationToken);
+        Task<Teacher?> GetTeacherByIdAsync(int id, CancellationToken cancellationToken);
+        Task<Teacher> AddTeacherAsync(Teacher teacher, CancellationToken cancellationToken);
+        Task<Teacher> UpdateTeacherAsync(Teacher teacher, CancellationToken cancellationToken);
+        Task<bool> DeleteTeacherAsync(int id, CancellationToken cancellationToken);
     }
 
     public class TeacherService : ITeacherService
     {
         private readonly UniversityDbContext _dbContext;
+
+        // Конструктор, принимающий DbContext
         public TeacherService(UniversityDbContext dbContext)
         {
             _dbContext = dbContext;
         }
+
+        // Получение списка преподавателей с фильтрацией
         public async Task<Teacher[]> GetTeachersAsync(TeacherFilter filter, CancellationToken cancellationToken = default)
         {
             var query = _dbContext.Teachers
@@ -50,9 +54,11 @@ namespace MatveevVadimKt_42_22.Interfaces.TeacherInterfaces
                 query = query.Where(t => t.Department.Name.Contains(filter.Department));
             }
 
+            // Возвращаем результат
             return await query.ToArrayAsync(cancellationToken);
         }
 
+        // Получение преподавателя по ID
         public async Task<Teacher?> GetTeacherByIdAsync(int id, CancellationToken cancellationToken)
         {
             return await _dbContext.Teachers
@@ -62,6 +68,7 @@ namespace MatveevVadimKt_42_22.Interfaces.TeacherInterfaces
                 .FirstOrDefaultAsync(t => t.Id == id, cancellationToken);
         }
 
+        // Добавление нового преподавателя
         public async Task<Teacher> AddTeacherAsync(Teacher teacher, CancellationToken cancellationToken)
         {
             _dbContext.Teachers.Add(teacher);
@@ -69,6 +76,7 @@ namespace MatveevVadimKt_42_22.Interfaces.TeacherInterfaces
             return teacher;
         }
 
+        // Обновление данных преподавателя
         public async Task<Teacher> UpdateTeacherAsync(Teacher teacher, CancellationToken cancellationToken)
         {
             _dbContext.Teachers.Update(teacher);
@@ -76,6 +84,7 @@ namespace MatveevVadimKt_42_22.Interfaces.TeacherInterfaces
             return teacher;
         }
 
+        // Удаление преподавателя по ID
         public async Task<bool> DeleteTeacherAsync(int id, CancellationToken cancellationToken)
         {
             var teacher = await _dbContext.Teachers.FindAsync(new object[] { id }, cancellationToken);

@@ -1,8 +1,9 @@
-﻿using MatveevVadimKt_42_22.Interfaces.DepartmentInterfaces.Krylov_KT_42_22.Interfaces.DepartmentInterfaces;
-using MatveevVadimKt_42_22.Interfaces.DepartmentInterfaces;
+﻿using MatveevVadimKt_42_22.Interfaces.DepartmentInterfaces;
+
 using MatveevVadimKt_42_22.Interfaces.DisciplineInterfaces;
 using MatveevVadimKt_42_22.Interfaces.LoadInterfaces;
 using MatveevVadimKt_42_22.Interfaces.TeacherInterfaces;
+using static MatveevVadimKt_42_22.Interfaces.DisciplineInterfaces.IDisciplineService;
 
 namespace MatveevVadimKt_42_22.ServiceExtensions
 {

@@ -9,9 +9,16 @@ namespace MatveevVadimKt_42_22.Interfaces.LoadInterfaces
 {
     public interface ILoadService
     {
+        // Получение списка нагрузок с фильтрацией
         Task<LoadDto[]> GetLoadsAsync(LoadFilter filter, CancellationToken cancellationToken);
+
+        // Получение нагрузки по ID
         Task<LoadDto?> GetLoadByIdAsync(int id, CancellationToken cancellationToken);
+
+        // Добавление новой нагрузки
         Task<LoadDto> AddLoadAsync(AddLoadDto loadDto, CancellationToken cancellationToken);
+
+        // Обновление существующей нагрузки
         Task<LoadDto> UpdateLoadAsync(UpdateLoadDto loadDto, CancellationToken cancellationToken);
     }
 
@@ -27,73 +34,53 @@ namespace MatveevVadimKt_42_22.Interfaces.LoadInterfaces
         public async Task<LoadDto[]> GetLoadsAsync(LoadFilter filter, CancellationToken cancellationToken)
         {
             var query = _dbContext.Loads
-                .Include(l => l.Teacher)
-                .ThenInclude(t => t.Department)
-                .Include(l => l.Discipline)
                 .AsNoTracking()
+                .Include(l => l.Teacher)
+                .Include(l => l.Discipline)
+                .Include(l => l.Teacher.Department)
                 .AsQueryable();
 
-            // Применяем фильтры
+            // Применяем фильтрацию по каждому полю
             if (filter.TeacherId.HasValue)
-            {
                 query = query.Where(l => l.TeacherId == filter.TeacherId.Value);
-            }
 
             if (filter.DepartmentId.HasValue)
-            {
                 query = query.Where(l => l.Teacher.DepartmentId == filter.DepartmentId.Value);
-            }
 
             if (filter.DisciplineId.HasValue)
-            {
                 query = query.Where(l => l.DisciplineId == filter.DisciplineId.Value);
-            }
 
             if (filter.MinHours.HasValue)
-            {
                 query = query.Where(l => l.Hours >= filter.MinHours.Value);
-            }
 
             if (filter.MaxHours.HasValue)
-            {
                 query = query.Where(l => l.Hours <= filter.MaxHours.Value);
-            }
 
-            return await query.Select(l => new LoadDto
-            {
-                Id = l.Id,
-                TeacherId = l.TeacherId,
-                TeacherName = $"{l.Teacher.LastName} {l.Teacher.FirstName}",
-                DepartmentId = l.Teacher.DepartmentId,
-                DepartmentName = l.Teacher.Department.Name,
-                DisciplineId = l.DisciplineId,
-                DisciplineName = l.Discipline.Name,
-                Hours = l.Hours
-            }).ToArrayAsync(cancellationToken);
+            return await query
+                .Select(l => new LoadDto
+                {
+                    Id = l.Id,
+                    TeacherId = l.TeacherId,
+                    DisciplineId = l.DisciplineId,
+                    Hours = l.Hours
+                })
+                .ToArrayAsync(cancellationToken);
         }
 
         public async Task<LoadDto?> GetLoadByIdAsync(int id, CancellationToken cancellationToken)
         {
             var load = await _dbContext.Loads
-                .Include(l => l.Teacher)
-                .ThenInclude(t => t.Department)
-                .Include(l => l.Discipline)
-                .AsNoTracking()
-                .FirstOrDefaultAsync(l => l.Id == id, cancellationToken);
+                .Where(l => l.Id == id)
+                .Select(l => new LoadDto
+                {
+                    Id = l.Id,
+                    TeacherId = l.TeacherId,
+                    DisciplineId = l.DisciplineId,
+                    Hours = l.Hours
+                })
+                .FirstOrDefaultAsync(cancellationToken);
 
-            if (load == null) return null;
-
-            return new LoadDto
-            {
-                Id = load.Id,
-                TeacherId = load.TeacherId,
-                TeacherName = $"{load.Teacher.LastName} {load.Teacher.FirstName}",
-                DepartmentId = load.Teacher.DepartmentId,
-                DepartmentName = load.Teacher.Department.Name,
-                DisciplineId = load.DisciplineId,
-                DisciplineName = load.Discipline.Name,
-                Hours = load.Hours
-            };
+            return load;
         }
 
         public async Task<LoadDto> AddLoadAsync(AddLoadDto loadDto, CancellationToken cancellationToken)
@@ -108,15 +95,22 @@ namespace MatveevVadimKt_42_22.Interfaces.LoadInterfaces
             _dbContext.Loads.Add(load);
             await _dbContext.SaveChangesAsync(cancellationToken);
 
-            return await GetLoadByIdAsync(load.Id, cancellationToken);
+            return new LoadDto
+            {
+                Id = load.Id,
+                TeacherId = load.TeacherId,
+                DisciplineId = load.DisciplineId,
+                Hours = load.Hours
+            };
         }
 
         public async Task<LoadDto> UpdateLoadAsync(UpdateLoadDto loadDto, CancellationToken cancellationToken)
         {
-            var load = await _dbContext.Loads
-                .FirstOrDefaultAsync(l => l.Id == loadDto.Id, cancellationToken);
-
-            if (load == null) throw new Exception("Нагрузка не найдена");
+            var load = await _dbContext.Loads.FindAsync(new object[] { loadDto.Id }, cancellationToken);
+            if (load == null)
+            {
+                return null;
+            }
 
             load.TeacherId = loadDto.TeacherId;
             load.DisciplineId = loadDto.DisciplineId;
@@ -125,7 +119,28 @@ namespace MatveevVadimKt_42_22.Interfaces.LoadInterfaces
             _dbContext.Loads.Update(load);
             await _dbContext.SaveChangesAsync(cancellationToken);
 
-            return await GetLoadByIdAsync(load.Id, cancellationToken);
+            return new LoadDto
+            {
+                Id = load.Id,
+                TeacherId = load.TeacherId,
+                DisciplineId = load.DisciplineId,
+                Hours = load.Hours
+            };
+        }
+
+        // Добавляем метод для удаления нагрузки
+        public async Task<bool> DeleteLoadAsync(int id, CancellationToken cancellationToken)
+        {
+            var load = await _dbContext.Loads.FindAsync(new object[] { id }, cancellationToken);
+            if (load == null)
+            {
+                return false;  // Если нагрузка не найдена, возвращаем false
+            }
+
+            _dbContext.Loads.Remove(load);
+            await _dbContext.SaveChangesAsync(cancellationToken);
+            return true;  // Возвращаем true, если нагрузка была удалена
         }
     }
+
 }

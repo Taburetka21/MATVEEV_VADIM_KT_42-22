@@ -13,5 +13,9 @@
         public virtual Discipline Discipline { get; set; }
 
         public int Hours { get; set; }
+        public bool IsValidHours()
+        {
+            return Hours > 0 && Hours <= 40;// проверка на нормальное количество часов
+        }
     }
 }

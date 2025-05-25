@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ds876\\source\\repos\\Matveev_Vadim_KT-42-22\\MatveevVadimKt-42-22.csproj": {}
+    "C:\\Users\\Admin\\source\\repos\\MATVEEV_VADIM_KT_42-22\\MatveevVadimKt-42-22.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ds876\\source\\repos\\Matveev_Vadim_KT-42-22\\MatveevVadimKt-42-22.csproj": {
+    "C:\\Users\\Admin\\source\\repos\\MATVEEV_VADIM_KT_42-22\\MatveevVadimKt-42-22.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ds876\\source\\repos\\Matveev_Vadim_KT-42-22\\MatveevVadimKt-42-22.csproj",
+        "projectUniqueName": "C:\\Users\\Admin\\source\\repos\\MATVEEV_VADIM_KT_42-22\\MatveevVadimKt-42-22.csproj",
         "projectName": "MatveevVadimKt-42-22",
-        "projectPath": "C:\\Users\\ds876\\source\\repos\\Matveev_Vadim_KT-42-22\\MatveevVadimKt-42-22.csproj",
-        "packagesPath": "C:\\Users\\ds876\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ds876\\source\\repos\\Matveev_Vadim_KT-42-22\\obj\\",
+        "projectPath": "C:\\Users\\Admin\\source\\repos\\MATVEEV_VADIM_KT_42-22\\MatveevVadimKt-42-22.csproj",
+        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Admin\\source\\repos\\MATVEEV_VADIM_KT_42-22\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\ds876\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -38,13 +38,7 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.200"
+        }
       },
       "frameworks": {
         "net6.0": {
@@ -102,7 +96,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
         }
       }
     }

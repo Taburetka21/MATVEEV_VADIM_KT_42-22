@@ -14,10 +14,7 @@ namespace MatveevVadimKt_42_22.Interfaces.DepartmentInterfaces
         Task<Department> UpdateDepartmentAsync(UpdateDepartmentDto departmentDto, CancellationToken cancellationToken);
         Task<bool> DeleteDepartmentAsync(int id, CancellationToken cancellationToken);
     }
-
-    namespace Krylov_KT_42_22.Interfaces.DepartmentInterfaces
-    {
-        public class DepartmentService : IDepartmentService
+       public class DepartmentService : IDepartmentService
         {
             private readonly UniversityDbContext _dbContext;
 
@@ -176,4 +173,4 @@ namespace MatveevVadimKt_42_22.Interfaces.DepartmentInterfaces
             }
         }
     }
-}
+
