@@ -26,7 +26,6 @@ namespace MatveevVadimKt_42_22.Interfaces.TeacherInterfaces
             _dbContext = dbContext;
         }
 
-        // Получение списка преподавателей с фильтрацией
         public async Task<Teacher[]> GetTeachersAsync(TeacherFilter filter, CancellationToken cancellationToken = default)
         {
             var query = _dbContext.Teachers
@@ -36,27 +35,27 @@ namespace MatveevVadimKt_42_22.Interfaces.TeacherInterfaces
                 .Include(t => t.Department)
                 .AsQueryable();
 
-            // Фильтрация по ученой степени
-            if (!string.IsNullOrEmpty(filter.Degree))
+            // Фильтрация по DegreeId, если задано
+            if (filter.DegreeId.HasValue && filter.DegreeId.Value != 0)
             {
-                query = query.Where(t => t.Degree.Name.Contains(filter.Degree));
+                query = query.Where(t => t.DegreeId == filter.DegreeId.Value);
             }
 
-            // Фильтрация по должности
-            if (!string.IsNullOrEmpty(filter.Position))
+            // Фильтрация по PositionId, если задано
+            if (filter.PositionId.HasValue && filter.PositionId.Value != 0)
             {
-                query = query.Where(t => t.Position.Name.Contains(filter.Position));
+                query = query.Where(t => t.PositionId == filter.PositionId.Value);
             }
 
-            // Фильтрация по кафедре
-            if (!string.IsNullOrEmpty(filter.Department))
+            // Фильтрация по DepartmentId, если задано
+            if (filter.DepartmentId.HasValue && filter.DepartmentId.Value != 0)
             {
-                query = query.Where(t => t.Department.Name.Contains(filter.Department));
+                query = query.Where(t => t.DepartmentId == filter.DepartmentId.Value);
             }
 
-            // Возвращаем результат
             return await query.ToArrayAsync(cancellationToken);
         }
+
 
         // Получение преподавателя по ID
         public async Task<Teacher?> GetTeacherByIdAsync(int id, CancellationToken cancellationToken)

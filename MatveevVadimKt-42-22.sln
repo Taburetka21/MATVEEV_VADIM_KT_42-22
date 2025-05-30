@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatveevVadimKt-42-22", "Mat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatveevVadimKT-42-22.Tests", "..\MatveevVadimKT-42-22.Tests\MatveevVadimKT-42-22.Tests.csproj", "{5FBC3D4A-1E10-4457-BB3A-1069109BF63D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatveevVadim1KT-42-22.Tests", "..\MatveevVadim1KT-42-22.Tests\MatveevVadim1KT-42-22.Tests.csproj", "{DBF5BBF6-3F6D-418C-AD95-9D4F582B4775}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{5FBC3D4A-1E10-4457-BB3A-1069109BF63D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5FBC3D4A-1E10-4457-BB3A-1069109BF63D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5FBC3D4A-1E10-4457-BB3A-1069109BF63D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBF5BBF6-3F6D-418C-AD95-9D4F582B4775}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBF5BBF6-3F6D-418C-AD95-9D4F582B4775}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBF5BBF6-3F6D-418C-AD95-9D4F582B4775}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBF5BBF6-3F6D-418C-AD95-9D4F582B4775}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
